@@ -1,0 +1,24 @@
+1- C:\Program Files\InternetRestrict\
+2- Ouvre PowerShell en administrateur
+3- Copier 
+
+    $action = New-ScheduledTaskAction -Execute "python.exe" -Argument "C:\Program Files\InternetRestrict\restrict_internet_windows.py"
+    $trigger = New-ScheduledTaskTrigger -AtStartup
+    $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -RunLevel Highest
+    Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "RestrictInternet" -Description "Bloque tout sauf certains sites" -Force
+
+Pour désactiver ou supprimer / Revenir à un comportement normal :
+
+# Supprimer les règles créées
+netsh advfirewall firewall delete rule name=all
+
+# Remettre le firewall normal
+Set-NetFirewallProfile -Profile Domain,Public,Private -DefaultOutboundAction Allow
+
+# Supprimer la tâche planifiée
+Unregister-ScheduledTask -TaskName "RestrictInternet" -Confirm:$false
+
+
+
+
+

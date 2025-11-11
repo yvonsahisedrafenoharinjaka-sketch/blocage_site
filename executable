@@ -1,0 +1,13 @@
+PowerShell (admin)
+$action = New-ScheduledTaskAction -Execute "C:\Program Files\InternetRestrict\restrict_internet_windows.exe"
+$trigger = New-ScheduledTaskTrigger -AtStartup
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -RunLevel Highest
+Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "RestrictInternet" -Description "Bloque tout sauf certains sites" -Force
+
+
+Désinstallation
+# Supprime la tâche planifiée
+Unregister-ScheduledTask -TaskName "RestrictInternet" -Confirm:$false
+
+# Rétablit le pare-feu normal
+Set-NetFirewallProfile -Profile Domain,Public,Private -DefaultOutboundAction Allow
