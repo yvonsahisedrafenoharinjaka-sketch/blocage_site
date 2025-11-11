@@ -11,3 +11,12 @@ Unregister-ScheduledTask -TaskName "RestrictInternet" -Confirm:$false
 
 # Rétablit le pare-feu normal
 Set-NetFirewallProfile -Profile Domain,Public,Private -DefaultOutboundAction Allow
+
+
+------------------------------------
+
+Méthode 1 : Dossier “Démarrage”
+
+Win + R → tape shell:startup.
+
+Copie le .exe dans ce dossier.
