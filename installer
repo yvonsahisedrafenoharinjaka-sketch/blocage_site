@@ -1,0 +1,5 @@
+code terminal : pyinstaller --onefile --noconsole --uac-admin --name BlockMobileFirewall block_mobile_and_firewall.py
+
+powershell : schtasks /create /tn "BlockMobileFirewall" /tr "C:\chemin\vers\BlockMobileFirewall.exe" /sc onlogon /rl highest /f
+
+spec : pyinstaller block_mobile_and_firewall.spec
